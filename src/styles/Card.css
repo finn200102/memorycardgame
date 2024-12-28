@@ -1,0 +1,10 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card:hover {
+  background-color: rgb(46, 44, 44);
+}
