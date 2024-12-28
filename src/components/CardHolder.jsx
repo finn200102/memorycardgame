@@ -1,11 +1,11 @@
 import Card from "./Card";
 import { fetchImageUrls } from "../api/imageService";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import "../styles/CardHolder.css";
-function CardHolder() {
+function CardHolder({ onClick }) {
   const [imageUrls, setImageUrls] = useState([]);
-  // const apiEndpoint = "https://pokeapi.co/api/v2/pokemon/";
-  //const urls = await fetchImageUrls();
+
   useEffect(() => {
     const fetchUrls = async () => {
       try {
@@ -17,13 +17,18 @@ function CardHolder() {
     };
     fetchUrls();
   }, []);
+
   return (
     <div className="card-holder">
       {imageUrls.map((url) => (
-        <Card key={url} url={url} />
+        <Card key={url} url={url} onClick={onClick} />
       ))}
     </div>
   );
 }
 
 export default CardHolder;
+
+CardHolder.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};

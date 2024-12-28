@@ -1,35 +1,28 @@
 import { useState } from "react";
 import CardHolder from "./components/CardHolder";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import Score from "./components/Score";
 import "./App.css";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [clickedImageUrls, setClickedImageUrls] = useState([]);
+
+  const handleCardClick = (url) => {
+    // run game
+    // check if url in clickedImageUrls
+    if (clickedImageUrls.includes(url)) {
+      setClickedImageUrls([]);
+      setCount(0);
+    } else {
+      setClickedImageUrls((prevItems) => [...prevItems, url]);
+      setCount((prevCount) => prevCount + 1);
+    }
+  };
 
   return (
     <>
-      <CardHolder />
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <CardHolder onClick={handleCardClick} />
+      <Score score={count} />
     </>
   );
 }
