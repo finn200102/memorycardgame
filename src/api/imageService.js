@@ -1,5 +1,5 @@
-export const fetchImageUrls = async () => {
-  const pokemons = await getPokemons();
+export const fetchImageUrls = async (count = "10") => {
+  const pokemons = await getPokemons(count);
   const promises = pokemons.map(async (pokemon) => {
     const url = await getImage(pokemon);
     return url;
@@ -8,11 +8,11 @@ export const fetchImageUrls = async () => {
   return urls;
 };
 
-const getPokemons = async () => {
+const getPokemons = async (count) => {
   const apiEndpoint = "https://pokeapi.co/api/v2/pokemon/";
   const pokemons = [];
   try {
-    const response = await fetch(apiEndpoint + "?limit=10");
+    const response = await fetch(apiEndpoint + "?limit=" + count);
     const data = await response.json();
     data.results.map((pokemon) => {
       pokemons.push(pokemon.name);

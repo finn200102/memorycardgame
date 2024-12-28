@@ -3,20 +3,20 @@ import { fetchImageUrls } from "../api/imageService";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "../styles/CardHolder.css";
-function CardHolder({ onClick }) {
+function CardHolder({ onClick, count }) {
   const [imageUrls, setImageUrls] = useState([]);
 
   useEffect(() => {
     const fetchUrls = async () => {
       try {
-        const urls = await fetchImageUrls();
+        const urls = await fetchImageUrls(count);
         setImageUrls(urls);
       } catch (error) {
         console.error("Fetching did not work", error);
       }
     };
     fetchUrls();
-  }, []);
+  }, [count]);
 
   return (
     <div className="card-holder">
@@ -31,4 +31,5 @@ export default CardHolder;
 
 CardHolder.propTypes = {
   onClick: PropTypes.func.isRequired,
+  count: PropTypes.string.isRequired,
 };

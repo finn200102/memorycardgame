@@ -6,6 +6,11 @@ import "./App.css";
 function App() {
   const [count, setCount] = useState(0);
   const [clickedImageUrls, setClickedImageUrls] = useState([]);
+  const [difficulty, setDifficulty] = useState("10");
+
+  const updateDifficult = (difficulty) => {
+    setDifficulty(difficulty);
+  };
 
   const handleCardClick = (url) => {
     // run game
@@ -21,8 +26,15 @@ function App() {
 
   return (
     <>
-      <CardHolder onClick={handleCardClick} />
-      <Score score={count} />
+      <header>
+        <h1>Memory Game</h1>
+      </header>
+      <CardHolder onClick={handleCardClick} count={difficulty} />
+      <Score
+        score={count}
+        difficulty={difficulty}
+        updateDifficulty={updateDifficult}
+      />
     </>
   );
 }
